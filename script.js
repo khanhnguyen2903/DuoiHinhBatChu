@@ -172,29 +172,35 @@ btnNext.addEventListener("click", function () {
 });
 // Click select a letter form list letter
 selectWordEl.addEventListener("click", function (e) {
-  const cellAnswer = document.querySelectorAll(".cell_answer");
-  const arrCell = [];
-  cellAnswer.forEach((cell) => {
-    if (cell.innerText === "") {
-      arrCell.push(cell);
+  console.log(e.target.localName === "li");
+  if (e.target.localName === "li") {
+    const cellAnswer = document.querySelectorAll(".cell_answer");
+    const arrCell = [];
+    cellAnswer.forEach((cell) => {
+      if (cell.innerText === "") {
+        arrCell.push(cell);
+      }
+    });
+    arrCell[0].innerText = e.target.innerText;
+    arrCell[0].dataset.cell = e.target.dataset.cell;
+    e.target.innerText = "";
+    if (arrCell.length === 1) {
+      checkAnswer(cellAnswer);
     }
-  });
-  arrCell[0].innerText = e.target.innerText;
-  arrCell[0].dataset.cell = e.target.dataset.cell;
-  e.target.innerText = "";
-  if (arrCell.length === 1) {
-    checkAnswer(cellAnswer);
   }
 });
 // Undo letter selected
 answerEl.addEventListener("click", function (e) {
-  const cellSelect = document.querySelectorAll(".word");
-  cellSelect.forEach((cell) => {
-    if (cell.dataset.cell === e.target.dataset.cell) {
-      cell.innerText = e.target.innerText;
-    }
-  });
-  e.target.innerText = "";
+  console.log(e.target.localName === "div");
+  if (e.target.localName === "div") {
+    const cellSelect = document.querySelectorAll(".word");
+    cellSelect.forEach((cell) => {
+      if (cell.dataset.cell === e.target.dataset.cell) {
+        cell.innerText = e.target.innerText;
+      }
+    });
+    e.target.innerText = "";
+  }
 });
 
 arrAnswer = getArrayCharacter(questions[q - 1].answer);
